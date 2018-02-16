@@ -9,13 +9,10 @@ def correl(img, kernel):
     ''' Helper function for the correlation function so that we can run separately
     on the RGB feeds'''
 
-    # Kernell Dimensions
+    # kernel dimensions
     m, n = kernel.shape
 
-    # create output dimensions
-    img_row = img.shape[0]
-    img_col = img.shape[1]
-    output_img = np.zeros((img_row,img_col))
+    img_result = np.zeros((img.shape[0],img.shape[1]))
 
     # Pad the img with 0s
     pad_width = kernel.shape[1] / 2   # kernel width floor div by 2
@@ -27,9 +24,9 @@ def correl(img, kernel):
 
             neighb_arr = pad_img[r:r+m,c:c+n]  # grab neighs from pad_img
             product_arr = neighb_arr * kernel  # mult with kernel
-            output_img[r,c] = product_arr.sum()  # sum and assign to output_img
+            img_result[r,c] = product_arr.sum()  # sum and assign to output_img
 
-    return output_img
+    return img_result
 
 def cross_correlation_2d(img, kernel):
     '''Given a kernel of arbitrary m x n dimensions, with both m and n being
@@ -50,22 +47,23 @@ def cross_correlation_2d(img, kernel):
         height and the number of color channels)
     '''
     # getting input size to distinguish between RGB and greyscale images
-    input_dim = len(img.shape)
+    img_dim = len(img.shape)
 
-    output = np.zeros(img.shape)
+    cross = np.zeros(img.shape)
 
     # if greyscale, run helper once
-    if input_dim == 2:
-        output = correl(img,kernel)
+    if img_dim == 2:
+        cross = correl(img,kernel)
 
     # else run on each feed
-    if input_dim == 3:
+    if img_dim == 3:
 
-        # passing in each of the RGB feeds  separately
-        for i in range(3):
-            output[:,:,i] = correl(img[:,:,i], kernel)
+        # passing in each of the RGB feeds separately
+        for i in range(img_dim):
 
-    return output
+            cross[:,:,i] = correl(img[:,:,i], kernel)
+
+    return cross
 
 
 def convolve_2d(img, kernel):
@@ -99,17 +97,6 @@ def gaussian_blur_kernel_2d(sigma, height, width):
         Return a kernel of dimensions width x height such that convolving it
         with an image results in a Gaussian-blurred image.
     '''
-    # x, y = width/2, height/2
-    # x1,y1 = x+1, y+1
-    # X = np.arange(-x, x + 1, 1.0)**2
-    # Y = np.arange(-y,y1, 1.0)**2
-
-    # X = np.exp(-X/(2 * sigma * sigma))
-    # Y = np.exp(-Y/(2 * sigma * sigma)) / (2 * sigma * sigma * np.pi)
-    # output = np.outer(X,Y)
-    
-    # normalize = np.sum(Y) * np.sum(X)
-    # return output / normalize
 
     kernel = np.zeros((height, width))
 
@@ -124,14 +111,8 @@ def gaussian_blur_kernel_2d(sigma, height, width):
             # Gaussian distribution
             kernel[h,w] = 1.0/(2.0 * math.pi * sigma * sigma) * math.exp((-1.0) * ((x * x) + (y * y)) / (2.0 * sigma * sigma))
 
-            # if (h == 1 & w == 1):
-            #     print ("this is the first: " + str(kernel[h,w]) + "\n")
-            #     print ("x: " + str(x))
-            #     print ("y: " + str(y))
     # nomalizing by dividing by sum
-    
     normalize = kernel / np.sum(kernel)
-    # print (normalize)
 
     return normalize
 
