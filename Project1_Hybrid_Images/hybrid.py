@@ -9,25 +9,27 @@ def correl(img, kernel):
     ''' Helper function for the correlation function so that we can run separately
     on the RGB feeds'''
 
-    # kernel dimensions
-    m, n = kernel.shape
-
+    # img dimensions
     height = img.shape[0]
     width = img.shape[1]
 
+    # kernel dimensions
+    m, n = kernel.shape
+
+
     img_result = np.zeros((height,width))
 
-    # Pad the img with 0s
-    pad_width = kernel.shape[1] / 2   # kernel width floor div by 2
-    pad_height = kernel.shape[0] / 2  # kernel width floor div by 2
-    pad_img = np.pad(img,[(pad_height,pad_height),(pad_width,pad_width)],'constant',constant_values=(0))
+    kernel_y = m / 2
+    kernel_x = n / 2 
 
-    for r in range(height):
-        for c in range(width):
+    padded = np.pad(img,[(height,height),(width, width)],'constant',constant_values=(0))
 
-            neighb_arr = pad_img[r:r+m,c:c+n]  # grab neighs from pad_img
-            product_arr = neighb_arr * kernel  # mult with kernel
-            img_result[r,c] = product_arr.sum()  # sum and assign to output_img
+    for h in range(height):
+        for w in range(width):
+
+            neighb_arr = padded[h:h+m,w:w+n] 
+            # product_arr = neighb_arr * kernel
+            img_result[r,c] = np.dot(kernel, neighb_arr)
 
     return img_result
 
