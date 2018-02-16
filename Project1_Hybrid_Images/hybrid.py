@@ -124,7 +124,7 @@ def gaussian_blur_kernel_2d(sigma, height, width):
             # Gaussian distribution
             kernel[h,w] = 1.0/(2.0 * math.pi * sigma * sigma) * math.exp((-1.0) * ((x * x) + (y * y)) / (2.0 * sigma * sigma))
 
-            if (h == 1 && w == 1):
+            if (h == 1 & w == 1):
                 print ("this is the first: " + str(kernel[h,w]) + "\n")
     # nomalizing by dividing by sum
     
@@ -147,7 +147,7 @@ def gaussian_blur_kernel_2d(sigma, height, width):
             gauss = first*second
             kernel[r,c] = gauss
 
-            if (h == 1 && w == 1):
+            if (h == 1 & w == 1):
                 print ("this is the second: " + str(gauss) + "\n")
 
             sum = np.sum(kernel)
