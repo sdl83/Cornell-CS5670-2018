@@ -59,14 +59,15 @@ def cross_correlation_2d(img, kernel):
         Return an image of the same dimensions as the input image (same width,
         height and the number of color channels)
     '''
+
+    cross = np.zeros(img.shape)
+    
     # getting input size to distinguish between RGB and greyscale images
     img_dim = len(img.shape)
 
-    cross = np.zeros(img.shape)
-
     # if greyscale, run helper once
     if img_dim == 2:
-        cross = correl(img,kernel)
+        cross = correl(img, kernel)
 
     # else run on each feed
     if img_dim == 3:
