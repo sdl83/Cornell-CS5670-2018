@@ -22,9 +22,13 @@ def correl(img, kernel):
     kernel_y = m / 2
     kernel_x = n / 2 
 
-    padded = np.pad(img,[(height,height),(width, width)],'constant',constant_values=(0))
-
+    padded = np.pad(img,[(kernel_y,kernel_y),(kernel_x, kernel_x)],'constant',constant_values=(0))
+    
+    kernel = kernel.reshape(-1)
+    
+    
     for h in range(height):
+
         for w in range(width):
 
             neighb_arr = padded[h:h+m,w:w+n] 
