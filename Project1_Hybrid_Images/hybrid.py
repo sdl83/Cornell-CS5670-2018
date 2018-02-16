@@ -99,24 +99,35 @@ def gaussian_blur_kernel_2d(sigma, height, width):
         Return a kernel of dimensions width x height such that convolving it
         with an image results in a Gaussian-blurred image.
     '''
+    x, y = width/2, height/2
+    x1,y1 = x+1, y+1
+    X = np.arange(-x,x1, 1.0)**2
+    Y = np.arange(-y,y1, 1.0)**2
 
-    kernel = np.zeros((height, width))
+    X = np.exp(-X/(2 * sigma * sigma))
+    Y = np.exp(-Y/(2 * sigma * sigma)) / (2 * sigma * sigma * np.pi)
+    output = np.outer(X,Y)
+    
+    normalize = np.sum(Y) * np.sum(X)
+    return output / normalize
 
-    # iterating through the height and width of image
-    for h in range(height):
+    # kernel = np.zeros((height, width))
 
-        for w in range(width):
+    # # iterating through the height and width of image
+    # for h in range(height):
 
-            x = - width/2.0 + w
-            y = height/2.0 - h
+    #     for w in range(width):
+
+    #         x = - width/2.0 + w
+    #         y = height/2.0 - h
                 
-            # Gaussian distribution
-            kernel[h,w] = 1.0/(2.0 * math.pi * sigma * sigma) * math.exp((-1.0 * (x * x + y * y)) / (2.0 * sigma * sigma))
+    #         # Gaussian distribution
+    #         kernel[h,w] = 1.0/(2.0 * math.pi * sigma * sigma) * math.exp(-1.0 * (x * x + y * y) / (2.0 * sigma * sigma))
             
-            # nomalizing by dividing by sum
-            normalize = kernel / np.sum(kernel)
+    #         # nomalizing by dividing by sum
+    #         normalize = kernel / np.sum(kernel)
 
-    return normalize
+    # return normalize
 
 
 def low_pass(img, sigma, size):
