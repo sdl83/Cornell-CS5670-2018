@@ -108,7 +108,7 @@ def gaussian_blur_kernel_2d(sigma, height, width):
         for w in range(width):
 
             x = - width/2 + w
-            y = height/2 - h
+            y = - height/2 + h
                 
             # Gaussian distribution
             kernel[h,w] = 1/(2 * math.pi * sigma * sigma) * math.exp(-1 * x * x + y * y) / (2 * sigma * sigma)
