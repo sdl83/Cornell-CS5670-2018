@@ -12,15 +12,18 @@ def correl(img, kernel):
     # kernel dimensions
     m, n = kernel.shape
 
-    img_result = np.zeros((img.shape[0],img.shape[1]))
+    height = img.shape[0]
+    width = img.shape[1]
+
+    img_result = np.zeros((height,width))
 
     # Pad the img with 0s
     pad_width = kernel.shape[1] / 2   # kernel width floor div by 2
     pad_height = kernel.shape[0] / 2  # kernel width floor div by 2
     pad_img = np.pad(img,[(pad_height,pad_height),(pad_width,pad_width)],'constant',constant_values=(0))
 
-    for r in range(img_row):
-        for c in range(img_col):
+    for r in range(height):
+        for c in range(width):
 
             neighb_arr = pad_img[r:r+m,c:c+n]  # grab neighs from pad_img
             product_arr = neighb_arr * kernel  # mult with kernel
