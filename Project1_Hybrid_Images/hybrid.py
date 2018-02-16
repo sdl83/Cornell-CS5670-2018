@@ -122,35 +122,34 @@ def gaussian_blur_kernel_2d(sigma, height, width):
             y = - h + height/2.0
                 
             # Gaussian distribution
-            kernel[h,w] = 1.0/(2.0 * math.pi * sigma * sigma) * math.exp(-1.0 * ((x * x) + (y * y)) / (2.0 * sigma * sigma))
+            kernel[h,w] = 1.0/(2.0 * math.pi * sigma * sigma) * math.exp((-1.0) * ((x * x) + (y * y)) / (2.0 * sigma * sigma))
             
-            # nomalizing by dividing by sum
+    # nomalizing by dividing by sum
     
-    # normalize = kernel / np.sum(kernel)
+    normalize = kernel / np.sum(kernel)
+    print (normalize)
 
-    sum = np.sum(kernel)
-    n_kernel = kernel/sum
+    # return normalize
+
+    kernel = np.zeros((height,width))
+
+    for r in range(height):
+        for c in range(width):
+
+            # translate row and col to x, y coordinates
+            x = c-width/2
+            y = -r+height/2
+
+            first = 1/(2*math.pi*math.pow(sigma,2))
+            second = math.exp(-1 * (math.pow(x, 2) + math.pow(y, 2)) / (2 * math.pow(sigma, 2)))
+            gauss = first*second
+            kernel[r,c] = gauss
+
+            sum = np.sum(kernel)
+            n_kernel = kernel/sum
+    print (n_kernel)
 
     return n_kernel
-
-    # kernel = np.zeros((height,width))
-
-    # for r in range(height):
-    #     for c in range(width):
-
-    #         # translate row and col to x, y coordinates
-    #         x = c-width/2
-    #         y = -r+height/2
-
-    #         first = 1/(2*math.pi*math.pow(sigma,2))
-    #         second = math.exp(-1 * (math.pow(x, 2) + math.pow(y, 2)) / (2 * math.pow(sigma, 2)))
-    #         gauss = first*second
-    #         kernel[r,c] = gauss
-
-    #         sum = np.sum(kernel)
-    #         n_kernel = kernel/sum
-
-    # return n_kernel
 
 
 def low_pass(img, sigma, size):
