@@ -122,7 +122,7 @@ def gaussian_blur_kernel_2d(sigma, height, width):
             y = - h + height/2.0
                 
             # Gaussian distribution
-            kernel[h,w] = 1.0/(2.0 * math.pi * math.pow(sigma, 2)) * math.exp(-1.0 * ((x * x) + (y * y)) / (2.0 * sigma * sigma))
+            kernel[h,w] = 1.0/(2.0 * math.pi * math.pow(sigma, 2)) * math.exp(-1.0 * (math.pow(x, 2) + math.pow(y, 2)) / (2.0 * math.pow(sigma, 2)))
             
             # nomalizing by dividing by sum
     normalize = kernel / np.sum(kernel)
