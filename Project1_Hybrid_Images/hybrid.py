@@ -60,31 +60,30 @@ def gaussian_blur_kernel_2d(sigma, width, height):
         with an image results in a Gaussian-blurred image.
     '''
 
-    kernel = np.zeros((height, width))
+    # kernel = np.zeros((height, width))
 
-    for h in range(height):
-        for w in range(width):
-            x = w - width/2
-            y = - h + height/2
+    # for h in range(height):
+    #     for w in range(width):
+    #         x = w - width/2
+    #         y = - h + height/2
             
-            kernel[h,w] = 1/(2 * math.pi * math.pow(sigma,2)) * math.exp(-1 * (math.pow(x, 2) + math.pow(y, 2)) / (2 * math.pow(sigma, 2)))
+    #         kernel[h,w] = 1/(2 * math.pi * math.pow(sigma,2)) * math.exp(-1 * (math.pow(x, 2) + math.pow(y, 2)) / (2 * math.pow(sigma, 2)))
 
-            kernel_sum = np.sum(kernel)
-            normalize = kernel / kernel_sum
+    #         normalize = kernel / np.sum(kernel)
 
-    return normalize
+    # return normalize
 
-    # x, y = width/2, height/2
-    # x1,y1 = x+1, y+1
-    # X = np.arange(-x,x1, 1.0)**2
-    # Y = np.arange(-y,y1, 1.0)**2
+    x, y = width/2, height/2
+    x1,y1 = x+1, y+1
+    X = np.arange(-x,x1, 1.0)**2
+    Y = np.arange(-y,y1, 1.0)**2
 
-    # X = np.exp(-X/(2 * sigma * sigma))
-    # Y = np.exp(-Y/(2 * sigma * sigma)) / (2 * sigma * sigma * np.pi)
-    # output = np.outer(X,Y)
+    X = np.exp(-X/(2 * sigma * sigma))
+    Y = np.exp(-Y/(2 * sigma * sigma)) / (2 * sigma * sigma * np.pi)
+    output = np.outer(X,Y)
     
-    # normalize = np.sum(Y) * np.sum(X)
-    # return output / normalize
+    normalize = np.sum(Y) * np.sum(X)
+    return output / normalize
 
 
 def low_pass(img, sigma, size):
