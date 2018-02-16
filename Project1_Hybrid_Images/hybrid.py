@@ -24,7 +24,7 @@ def correl(img, kernel):
 
     padded = np.pad(img,[(kernel_y,kernel_y),(kernel_x, kernel_x)],'constant',constant_values=(0))
     
-    kernel = kernel.reshape(-1)
+    # kernel = kernel.reshape(-1)
     
     
     for h in range(height):
