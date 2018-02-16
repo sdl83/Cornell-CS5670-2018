@@ -84,7 +84,7 @@ def convolve_2d(img, kernel):
     # flipping the kernel
     return cross_correlation_2d(img, kernel[::-1,::-1])
 
-def gaussian_blur_kernel_2d(sigma, height, width):
+def gaussian_blur_kernel_2d(sigma, width, height):
     '''Return a Gaussian blur kernel of the given dimensions and with the given
     sigma. Note that width and height are different.
 
