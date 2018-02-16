@@ -23,16 +23,19 @@ def correl(img, kernel):
     kernel_x = n / 2 
 
     padded = np.pad(img,[(kernel_y,kernel_y),(kernel_x, kernel_x)],'constant')
+
+    kernel = kernel.reshape(-1)
     
     # computing new pixel value
     for h in range(height):
 
         for w in range(width):
 
-            neighborhood = padded[h-kernel_y:h+kernel_y,w-kernel_x:w+kernel_x] 
-            print (neighborhood)
-            product_arr = neighborhood * kernel
-            img_result[h,w] = np.sum(product_arr)
+            neighborhood = padded[h:h+m,w:w+n] 
+            neigh_matrix = np.reshape(neighborhood, n*m)
+            # prod = neighborhood * kernel
+            # img_result[h,w] = np.sum(prod)
+            img_result[h,w] = np.dot(kernel,neigh_matrix)
 
     return img_result
 
