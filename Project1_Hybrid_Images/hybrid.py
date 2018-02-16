@@ -124,40 +124,16 @@ def gaussian_blur_kernel_2d(sigma, height, width):
             # Gaussian distribution
             kernel[h,w] = 1.0/(2.0 * math.pi * sigma * sigma) * math.exp((-1.0) * ((x * x) + (y * y)) / (2.0 * sigma * sigma))
 
-            if (h == 1 & w == 1):
-                print ("this is the first: " + str(kernel[h,w]) + "\n")
-                print ("x: " + str(x))
-                print ("y: " + str(y))
+            # if (h == 1 & w == 1):
+            #     print ("this is the first: " + str(kernel[h,w]) + "\n")
+            #     print ("x: " + str(x))
+            #     print ("y: " + str(y))
     # nomalizing by dividing by sum
     
     normalize = kernel / np.sum(kernel)
     # print (normalize)
 
-    # return normalize
-
-    kernel = np.zeros((height,width))
-
-    for r in range(height):
-        for c in range(width):
-
-            # translate row and col to x, y coordinates
-            x = c-width/2
-            y = -r+height/2
-
-            first = 1/(2*math.pi*math.pow(sigma,2))
-            second = math.exp(-1 * (math.pow(x, 2) + math.pow(y, 2)) / (2 * math.pow(sigma, 2)))
-            gauss = first*second
-            kernel[r,c] = gauss
-
-            if (r == 1 & c == 1):
-                print ("this is the second: " + str(gauss) + "\n")
-                print ("x: " + str(x))
-                print ("y: " + str(y))
-
-            sum = np.sum(kernel)
-            n_kernel = kernel/sum
-
-    return n_kernel
+    return normalize
 
 
 def low_pass(img, sigma, size):
