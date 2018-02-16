@@ -5,6 +5,32 @@ import cv2
 import math
 import numpy as np
 
+def correl(img, kernel):
+    ''' Helper function for the correlation function so that we can run separately
+    on the RGB feeds'''
+
+    # Kernell Dimensions
+    m, n = kernel.shape
+
+    # create output dimensions
+    img_row = img.shape[0]
+    img_col = img.shape[1]
+    output_img = np.zeros((img_row,img_col))
+
+    # Pad the img with 0s
+    pad_width = kernel.shape[1] / 2   # kernel width floor div by 2
+    pad_height = kernel.shape[0] / 2  # kernel width floor div by 2
+    pad_img = np.pad(img,[(pad_height,pad_height),(pad_width,pad_width)],'constant',constant_values=(0))
+
+    for r in range(img_row):
+        for c in range(img_col):
+
+            neighb_arr = pad_img[r:r+m,c:c+n]  # grab neighs from pad_img
+            product_arr = neighb_arr * kernel  # mult with kernel
+            output_img[r,c] = product_arr.sum()  # sum and assign to output_img
+
+    return output_img
+
 def cross_correlation_2d(img, kernel):
     '''Given a kernel of arbitrary m x n dimensions, with both m and n being
     odd, compute the cross correlation of the given image with the given
@@ -23,10 +49,24 @@ def cross_correlation_2d(img, kernel):
         Return an image of the same dimensions as the input image (same width,
         height and the number of color channels)
     '''
+    # getting input size to distinguish between RGB and greyscale images
+    input_dim = len(img.shape)
 
-    # TODO: implement
+    output = np.zeros(img.shape)
 
-    return img
+    # if greyscale, run helper once
+    if input_dim == 2:
+        output = correl(img,kernel)
+
+    # else run on each feed
+    if input_dim == 3:
+
+        # passing in each of the RGB feeds  separately
+        for i in range(3):
+            output[:,:,i] = correl(img[:,:,i], kernel)
+
+    return output
+
 
 def convolve_2d(img, kernel):
     '''Use cross_correlation_2d() to carry out a 2D convolution.
@@ -41,7 +81,7 @@ def convolve_2d(img, kernel):
         Return an image of the same dimensions as the input image (same width,
         height and the number of color channels)
     '''
-
+    # flipping the kernel
     return cross_correlation_2d(img, kernel[::-1,::-1])
 
 def gaussian_blur_kernel_2d(sigma, height, width):
@@ -62,15 +102,18 @@ def gaussian_blur_kernel_2d(sigma, height, width):
 
     kernel = np.zeros((height, width))
 
+    # iterating through the height and width of image
     for h in range(height):
 
         for w in range(width):
 
             x = - width/2 + w
             y = height/2 - h
-            
+                
+            # Gaussian distribution
             kernel[h,w] = 1/(2 * math.pi * sigma * sigma) * math.exp(-1 * x * x + y * y) / (2 * sigma * sigma))
-
+            
+            # nomalizing by dividing by sum
             normalize = kernel / np.sum(kernel)
 
     return normalize
@@ -88,7 +131,7 @@ def low_pass(img, sigma, size):
     ker = gaussian_blur_kernel_2d(sigma, size, size)
 
     return convolve_2d(img, ker)
-    
+
 
 def high_pass(img, sigma, size):
     '''Filter the image as if its filtered with a high pass filter of the given
@@ -99,6 +142,7 @@ def high_pass(img, sigma, size):
         Return an image of the same dimensions as the input image (same width,
         height and the number of color channels)
     '''
+    # opposite of low-pass filter -- remove the coarse details
     return img - low_pass(img, sigma, size)
 
 
