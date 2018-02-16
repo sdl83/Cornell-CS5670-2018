@@ -69,8 +69,7 @@ def gaussian_blur_kernel_2d(sigma, width, height):
             
             kernel[h,w] = 1/(2 * math.pi * math.pow(sigma,2)) * math.exp(-1 * (math.pow(x, 2) + math.pow(y, 2)) / (2 * math.pow(sigma, 2)))
 
-            normalize = kernel / np.sum(kernel)
-
+    normalize = kernel / np.sum(kernel)
     return normalize
 
     # x, y = width/2, height/2
