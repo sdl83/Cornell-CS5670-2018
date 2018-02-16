@@ -24,11 +24,12 @@ def correl(img, kernel):
 
     padded = np.pad(img,[(kernel_y,kernel_y),(kernel_x, kernel_x)],'constant')
     
+    # computing new pixel value
     for h in range(height):
 
         for w in range(width):
 
-            neighb_arr = padded[h:h+m,w:w+n] 
+            neighborhood = padded[h-kernel_y:h+kernel_y,w-kernel_x:w+kernel_x]
             product_arr = neighb_arr * kernel
             img_result[h,w] = np.sum(product_arr)
 
