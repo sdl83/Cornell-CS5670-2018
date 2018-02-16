@@ -38,7 +38,6 @@ def correl(img, kernel):
 
             # compute dot product result and store at new image pixel point
             img_result[h,w] = np.dot(kernel,neigh_matrix)
-
     return img_result
 
 def cross_correlation_2d(img, kernel):
@@ -76,7 +75,6 @@ def cross_correlation_2d(img, kernel):
         for i in range(img_dim):
 
             cross[:,:,i] = correl(img[:,:,i], kernel)
-
     return cross
 
 
@@ -127,7 +125,6 @@ def gaussian_blur_kernel_2d(sigma, height, width):
 
     # nomalizing by dividing by sum
     normalized = ker / np.sum(ker)
-
     return normalized
 
 
@@ -141,7 +138,6 @@ def low_pass(img, sigma, size):
         height and the number of color channels)
     '''
     ker = gaussian_blur_kernel_2d(sigma, size, size)
-
     return convolve_2d(img, ker)
 
 
@@ -155,7 +151,7 @@ def high_pass(img, sigma, size):
         height and the number of color channels)
     '''
     # opposite of low-pass filter -- remove the coarse details
-    return img - low_pass(img, sigma, size)
+    return (img - low_pass(img, sigma, size))
 
 
 def create_hybrid_image(img1, img2, sigma1, size1, high_low1, sigma2, size2,
