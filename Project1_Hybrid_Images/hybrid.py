@@ -29,7 +29,7 @@ def correl(img, kernel):
 
             neighb_arr = padded[h:h+m,w:w+n] 
             # product_arr = neighb_arr * kernel
-            img_result[r,c] = np.dot(kernel, neighb_arr)
+            img_result[h,w] = np.dot(kernel, neighb_arr)
 
     return img_result
 
