@@ -32,8 +32,8 @@ def correl(img, kernel):
 
         for w in range(width):
             # getting appropriate image sub-matrix
-            neighborhood = padded[h:h+m,w:w+n] 
-            # reshape to matrix shape
+            neighborhood = padded[h:h+m, w:w+n] 
+            # reshape to matrix shape (size of kernel)
             neigh_matrix = np.reshape(neighborhood, n*m)
 
             # compute dot product result and store at new image pixel point
