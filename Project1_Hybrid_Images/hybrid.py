@@ -30,7 +30,7 @@ def correl(img, kernel):
         for w in range(width):
 
             neighborhood = padded[h-kernel_y:h+kernel_y,w-kernel_x:w+kernel_x]
-            product_arr = neighb_arr * kernel
+            product_arr = neighborhood * kernel
             img_result[h,w] = np.sum(product_arr)
 
     return img_result
