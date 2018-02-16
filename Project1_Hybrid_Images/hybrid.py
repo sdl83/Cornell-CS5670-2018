@@ -63,27 +63,17 @@ def gaussian_blur_kernel_2d(sigma, height, width):
     kernel = np.zeros((height, width))
 
     for h in range(height):
+
         for w in range(width):
-            x = w - width/2
-            y = -h + height/2
+
+            x = - width/2 + w
+            y = height/2 - h
             
-            kernel[h,w] = 1/(2 * math.pi * math.pow(sigma,2)) * math.exp(-1 * (math.pow(x, 2) + math.pow(y, 2)) / (2 * math.pow(sigma, 2)))
+            kernel[h,w] = 1/(2 * math.pi * sigma * sigma) * math.exp(-1 * x * x + y * y) / (2 * sigma * sigma))
 
             normalize = kernel / np.sum(kernel)
+
     return normalize
-
-    # x = width/2
-    # y = height/2
-
-    # X = np.arange(-x, x+1, 1.0)**2
-    # Y = np.arange(-y, y+1, 1.0)**2
-
-    # X = np.exp(-X/(2 * sigma * sigma))
-    # Y = np.exp(-Y/(2 * sigma * sigma)) / (2 * sigma * sigma * np.pi)
-    # output = np.outer(X,Y)
-    
-    # normalize = np.sum(Y) * np.sum(X)
-    # return output / normalize
 
 
 def low_pass(img, sigma, size):
@@ -98,6 +88,7 @@ def low_pass(img, sigma, size):
     ker = gaussian_blur_kernel_2d(sigma, size, size)
 
     return convolve_2d(img, ker)
+    
 
 def high_pass(img, sigma, size):
     '''Filter the image as if its filtered with a high pass filter of the given
