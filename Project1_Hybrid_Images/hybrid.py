@@ -126,9 +126,9 @@ def gaussian_blur_kernel_2d(sigma, height, width):
             ker[h,w] = 1.0/(2.0 * math.pi * sigma * sigma) * math.exp((-1.0) * ((x * x) + (y * y)) / (2.0 * sigma * sigma))
 
     # nomalizing by dividing by sum
-    normalize = ker / np.sum(ker)
+    normalized = ker / np.sum(ker)
 
-    return normalize
+    return normalized
 
 
 def low_pass(img, sigma, size):
