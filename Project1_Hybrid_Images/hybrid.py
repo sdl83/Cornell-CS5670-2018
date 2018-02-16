@@ -126,6 +126,8 @@ def gaussian_blur_kernel_2d(sigma, height, width):
 
             if (h == 1 & w == 1):
                 print ("this is the first: " + str(kernel[h,w]) + "\n")
+                print ("x: " + str(x))
+                print ("y: " + str(y))
     # nomalizing by dividing by sum
     
     normalize = kernel / np.sum(kernel)
@@ -149,6 +151,8 @@ def gaussian_blur_kernel_2d(sigma, height, width):
 
             if (r == 1 & c == 1):
                 print ("this is the second: " + str(gauss) + "\n")
+                print ("x: " + str(x))
+                print ("y: " + str(y))
 
             sum = np.sum(kernel)
             n_kernel = kernel/sum
