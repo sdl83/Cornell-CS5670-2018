@@ -147,7 +147,7 @@ def gaussian_blur_kernel_2d(sigma, height, width):
             gauss = first*second
             kernel[r,c] = gauss
 
-            if (h == 1 & w == 1):
+            if (r == 1 & c == 1):
                 print ("this is the second: " + str(gauss) + "\n")
 
             sum = np.sum(kernel)
