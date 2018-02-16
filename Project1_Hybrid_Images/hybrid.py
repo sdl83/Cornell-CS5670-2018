@@ -16,14 +16,13 @@ def correl(img, kernel):
     # kernel dimensions
     m, n = kernel.shape
 
-
     img_result = np.zeros((height,width))
 
+    # computing a padded image for kernel cross correlation to edges
     kernel_y = m / 2
     kernel_x = n / 2 
 
-    padded = np.pad(img,[(kernel_y,kernel_y),(kernel_x, kernel_x)],'constant',constant_values=(0))
-    
+    padded = np.pad(img,[(kernel_y,kernel_y),(kernel_x, kernel_x)],'constant')
     
     for h in range(height):
 
