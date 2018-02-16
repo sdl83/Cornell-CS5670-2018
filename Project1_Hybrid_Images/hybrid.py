@@ -24,17 +24,19 @@ def correl(img, kernel):
 
     padded = np.pad(img,[(kernel_y,kernel_y),(kernel_x, kernel_x)],'constant')
 
+    # reshape to matrix shape
     kernel = kernel.reshape(-1)
     
     # computing new pixel value
     for h in range(height):
 
         for w in range(width):
-
+            # getting appropriate image sub-matrix
             neighborhood = padded[h:h+m,w:w+n] 
+            # reshape to matrix shape
             neigh_matrix = np.reshape(neighborhood, n*m)
-            # prod = neighborhood * kernel
-            # img_result[h,w] = np.sum(prod)
+
+            # compute dot product result and store at new image pixel point
             img_result[h,w] = np.dot(kernel,neigh_matrix)
 
     return img_result
