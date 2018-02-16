@@ -24,7 +24,7 @@ def correl(img, kernel):
 
     padded = np.pad(img,[(kernel_y,kernel_y),(kernel_x, kernel_x)],'constant',constant_values=(0))
     
-    # kernel = kernel.reshape(-1)
+    kernel = kernel.reshape(-1)
     
     
     for h in range(height):
@@ -32,8 +32,8 @@ def correl(img, kernel):
         for w in range(width):
 
             neighb_arr = padded[h:h+m,w:w+n] 
-            # product_arr = neighb_arr * kernel
-            img_result[h,w] = np.dot(kernel, neighb_arr)
+            product_arr = neighb_arr * kernel
+            img_result[h,w] = np.sum(product_arr)
 
     return img_result
 
