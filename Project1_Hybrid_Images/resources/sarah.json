@@ -1,0 +1,32 @@
+{
+  "first_image_points": [
+    [
+      238.5, 
+      144.0
+    ], 
+    [
+      233.5, 
+      239.0
+    ], 
+    [
+      335.5, 
+      194.0
+    ]
+  ], 
+  "second_image_points": [
+    [
+      236.5, 
+      154.5
+    ], 
+    [
+      230.5, 
+      250.5
+    ], 
+    [
+      330.5, 
+      203.5
+    ]
+  ], 
+  "first_image": "/home/ubuntu/Desktop/Cornell-CS5670-2018/Project1_Hybrid_Images/resources/frown.jpg", 
+  "second_image": "/home/ubuntu/Desktop/Cornell-CS5670-2018/Project1_Hybrid_Images/resources/smile.jpg"
+}
