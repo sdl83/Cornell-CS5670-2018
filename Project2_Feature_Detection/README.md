@@ -1,5 +1,5 @@
-CS 4670: Computer Vision
-Project 2: Feature Detection and Matching
+# CS 4670: Computer Vision
+## Project 2: Feature Detection and Matching
 
-Yunie Mao
-Sarah Le Cam
+### Yunie Mao
+### Sarah Le Cam
