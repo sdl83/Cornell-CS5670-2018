@@ -115,13 +115,22 @@ class HarrisKeypointDetector(KeypointDetector):
         harrisImage = np.zeros(srcImage.shape[:2])
         orientationImage = np.zeros(srcImage.shape[:2])
 
-        # TODO 1: Compute the harris corner strength for 'srcImage' at
-        # each pixel and store in 'harrisImage'.  See the project page
-        # for direction on how to do this. Also compute an orientation
-        # for each pixel and store it in 'orientationImage.'
-        # TODO-BLOCK-BEGIN
-        raise Exception("TODO in features.py not implemented")
-        # TODO-BLOCK-END
+        # Use the 3x3 Sobel operator to compute the x, y derivatives
+        dx = ndimage.sobel(srcImage, 0)
+        dy = ndimage.sobel(srcImage, 1)
+
+        # Use a 5x5 Gaussian mask with 0.5 sigma for weights
+        A = ndimage.gaussian_filter(dx * dx, sigma = 0.5)
+        B = ndimage.gaussian_filter(dx * dy, sigma = 0.5)
+        C = ndimage.gaussian_filter(dy * dy, sigma = 0.5)
+
+        det_H = A * C - B ** 2
+        trace_H = A + C
+
+        # Compute harris corner strength for 'srcImage' at each pixel  
+        harrisImage = det_H - 0.1 * trace_H ** 2
+        # Compute orientation for each pixel and store in 'orientationImage.'
+        orientationImage = np.arctan2(dx, dy) * 180 / np.pi
 
         # Save the harris image as harris.png for the website assignment
         self.saveHarrisImage(harrisImage, srcImage)
@@ -141,10 +150,9 @@ class HarrisKeypointDetector(KeypointDetector):
         '''
         destImage = np.zeros_like(harrisImage, np.bool)
 
-        # TODO 2: Compute the local maxima image
-        # TODO-BLOCK-BEGIN
-        raise Exception("TODO in features.py not implemented")
-        # TODO-BLOCK-END
+        # Compute the local maxima image
+        local_max = ndimage.maximum_filter(harrisImage, size = (7, 7))
+        destImage = (harrisImage == local_max)
 
         return destImage
 
@@ -186,13 +194,14 @@ class HarrisKeypointDetector(KeypointDetector):
 
                 f = cv2.KeyPoint()
 
-                # TODO 3: Fill in feature f with location and orientation
-                # data here. Set f.size to 10, f.pt to the (x,y) coordinate,
-                # f.angle to the orientation in degrees and f.response to
-                # the Harris score
-                # TODO-BLOCK-BEGIN
-                raise Exception("TODO in features.py not implemented")
-                # TODO-BLOCK-END
+                # Fill in feature f with location and orientation
+                # Set f.size to 10, f.pt to the (x,y) coordinate
+                # f.angle to the orientation in degrees
+                # f.response to the harris score
+                f.size = 10
+                f.pt = (x, y)
+                f.angle = orientationImage[y, x]
+                f.response = harrisImage[y, x]
 
                 features.append(f)
 
