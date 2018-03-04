@@ -81,13 +81,14 @@ def compute_and_save():
     c = HKD.computeLocalMaxima(a) # Todo2
     d = HKD.detectKeypoints(image) # Todo3
     e = SFD.describeFeatures(image, d) # Todo 4
-    f = MFD.describeFeatures(image, d) # Todo 5,6
+    # f = MFD.describeFeatures(image, d) # Todo 5,6
     # No test for Todo 7 or 8
     g = SSDFM.matchFeatures(image, image2) #TODO 7
     d_proc = pickle_cv2(d)
-    np.savez('resources/arrays',a=a,b=b,c=c,d_proc=d_proc,e=e,f=f,g=g)
+    # np.savez('resources/arrays',a=a,b=b,c=c,d_proc=d_proc,e=e,f=f,g=g)
+    np.savez('resources/arrays',a=a,b=b,c=c,d_proc=d_proc,e=e,g=g)
 # Uncomment next line to overwrite test data (not recommended)
-#compute_and_save()
+# compute_and_save()
 
 
 '''
