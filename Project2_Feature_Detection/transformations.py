@@ -2,7 +2,7 @@ import math
 import numpy as np
 
 
-def get_rot_mx(angle_x, angle_y, angle_z):
+def get_rot_mx(angle):
     '''
     Input:
         angle_x -- Rotation around the x axis in radians
@@ -15,22 +15,11 @@ def get_rot_mx(angle_x, angle_y, angle_z):
     '''
     # Note: For MOPS, you need to use angle_z only, since we are in 2D
 
-    rot_x_mx = np.array([[1, 0, 0, 0],
-                         [0, math.cos(angle_x), -math.sin(angle_x), 0],
-                         [0, math.sin(angle_x), math.cos(angle_x), 0],
-                         [0, 0, 0, 1]])
+    rot_mx = np.array([[math.cos(angle), -math.sin(angle), 0],
+                         [math.sin(angle), math.cos(angle), 0],
+                         [0, 0, 1]])
 
-    rot_y_mx = np.array([[math.cos(angle_y), 0, math.sin(angle_y), 0],
-                         [0, 1, 0, 0],
-                         [-math.sin(angle_y), 0, math.cos(angle_y), 0],
-                         [0, 0, 0, 1]])
-
-    rot_z_mx = np.array([[math.cos(angle_z), -math.sin(angle_z), 0, 0],
-                         [math.sin(angle_z), math.cos(angle_z), 0, 0],
-                         [0, 0, 1, 0],
-                         [0, 0, 0, 1]])
-
-    return np.dot(rot_z_mx, np.dot(rot_y_mx, rot_x_mx))
+    return rot_mx
 
 
 def get_trans_mx(trans_vec):
