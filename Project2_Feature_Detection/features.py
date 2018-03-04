@@ -304,7 +304,15 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             transMx = np.zeros((2, 3))
 
             x, y = f.pt
-            x, y = int(x), int(y)
+            # x, y = int(x), int(y)
+
+            T1 = transformations.get_trans_mx(f.pt)
+
+            
+            # R = transformations.get_rot_mx()
+
+             # transformations.get_scale_mx()
+            # transformations.get_rot_mx()
 
 
             # TODO-BLOCK-BEGIN
@@ -319,6 +327,11 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             # TODO 6: Normalize the descriptor to have zero mean and unit
             # variance. If the variance is zero then set the descriptor
             # vector to zero. Lastly, write the vector to desc.
+
+            # window = pad[y : y + 5, x : x + 5]
+            # desc[i, :] = window.reshape((25,))
+
+
             # TODO-BLOCK-BEGIN
             raise Exception("TODO in features.py not implemented")
             # TODO-BLOCK-END

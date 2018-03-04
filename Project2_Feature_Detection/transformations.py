@@ -42,10 +42,10 @@ def get_trans_mx(trans_vec):
         A 4x4 numpy array representing 3D translation.
     '''
     assert trans_vec.ndim == 1
-    assert trans_vec.shape[0] == 3
+    assert trans_vec.shape[0] == 2
 
-    trans_mx = np.eye(4)
-    trans_mx[:3, 3] = trans_vec
+    trans_mx = np.eye(3)
+    trans_mx[:2, 2] = trans_vec
 
     return trans_mx
 
