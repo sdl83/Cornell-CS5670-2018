@@ -308,9 +308,8 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
 
             # compute translation matrix around point f
             # TODO: does this work?
-            T1 = transformations.get_trans_mx(f.pt)
-
-
+            T1 = transformations.get_trans_mx(feature_point)
+            print (T1)
 
             # R = transformations.get_rot_mx()
 
