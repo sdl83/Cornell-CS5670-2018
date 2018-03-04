@@ -218,7 +218,7 @@ class ORBKeypointDetector(KeypointDetector):
             (in degrees) and set the size to 10.
         '''
         detector = cv2.ORB()
-        return detector.detect(image, None)
+        return detector.detect(image)
 
 
 ## Feature descriptors #########################################################
@@ -500,6 +500,7 @@ class RatioFeatureMatcher(FeatureMatcher):
             sorted_idx = np.argsort(dist[i])
             match = cv2.DMatch()
             match.queryIdx = i
+            print(type(sorted_idx[0]))
             match.trainIdx = sorted_idx[0]
             match.distance = dist[sorted_idx[0]] / dist[sorted_idx[1]]
             matches.append(match)
