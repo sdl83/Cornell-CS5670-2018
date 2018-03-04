@@ -307,11 +307,10 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             x, y = f.pt
 
             trans_vec = np.array([-x, -y])
-            print (trans_vec)
 
             # compute translation matrix around point f
             # TODO: does this work?
-            T1 = transformations.get_trans_mx(feature_point)
+            T1 = transformations.get_trans_mx(trans_vec)
             print (T1)
 
             # R = transformations.get_rot_mx()

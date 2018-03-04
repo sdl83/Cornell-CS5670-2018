@@ -36,7 +36,7 @@ def get_rot_mx(angle_x, angle_y, angle_z):
 def get_trans_mx(trans_vec):
     '''
     Input:
-        trans_vec -- Translation vector represented by an 1D numpy array with 3
+        trans_vec -- Translation vector represented by an 1D numpy array with 2
         elements
     Output:
         A 4x4 numpy array representing 3D translation.
