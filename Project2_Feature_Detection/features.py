@@ -500,9 +500,8 @@ class RatioFeatureMatcher(FeatureMatcher):
             sorted_idx = np.argsort(dist[i])
             match = cv2.DMatch()
             match.queryIdx = i
-            print(type(sorted_idx[0]))
             match.trainIdx = sorted_idx[0]
-            match.distance = dist[sorted_idx[0]] / dist[sorted_idx[1]]
+            match.distance = dist[i, sorted_idx[0]] / dist[i, sorted_idx[1]]
             matches.append(match)
 
         return matches
