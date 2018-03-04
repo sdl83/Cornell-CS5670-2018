@@ -498,7 +498,7 @@ class RatioFeatureMatcher(FeatureMatcher):
             match = cv2.DMatch()
             match.queryIdx = i
             match.trainIdx = sorted_idx[0]
-            match.distance = dist[sorted_idx[0]] / dist[sorted_idx[1]]
+            match.distance = dist[i, sorted_idx[0]] / dist[i, sorted_idx[1]]
             matches.append(match)
 
         return matches
