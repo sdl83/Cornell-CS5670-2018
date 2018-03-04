@@ -217,7 +217,7 @@ class ORBKeypointDetector(KeypointDetector):
             coordinates of the detected keypoints, the angle of the gradient
             (in degrees) and set the size to 10.
         '''
-        detector = cv2.ORB()
+        detector = cv2.ORB_create()
         return detector.detect(image)
 
 
@@ -306,7 +306,7 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             x, y = f.pt
             x, y = int(x), int(y)
 
-            
+
             # TODO-BLOCK-BEGIN
             raise Exception("TODO in features.py not implemented")
             # TODO-BLOCK-END
