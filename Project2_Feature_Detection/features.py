@@ -314,7 +314,10 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             rot_angle = - f.angle / 180. * math.pi
             R = transformations.get_rot_mx(rot_angle)
 
-            print (R)
+            # Compute scaling matrix by a factor of 1/5
+            S = transformations.get_scale_mx(1./5.)
+
+            print (S)
 
              # transformations.get_scale_mx()
             # transformations.get_rot_mx()

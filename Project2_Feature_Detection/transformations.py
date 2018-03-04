@@ -39,7 +39,7 @@ def get_trans_mx(trans_vec):
     return trans_mx
 
 
-def get_scale_mx(s_x, s_y, s_z):
+def get_scale_mx(s):
     '''
     Input:
         s_x -- Scaling along the x axis
@@ -49,9 +49,10 @@ def get_scale_mx(s_x, s_y, s_z):
         A 4x4 numpy array representing 3D scaling.
     '''
     # Note: For MOPS, you need to use s_x and s_y only, since we are in 2D
-    scale_mx = np.eye(4)
 
-    for i, s in enumerate([s_x, s_y, s_z]):
+    scale_mx = np.eye(3)
+
+    for i, s in range(2):
         scale_mx[i, i] = s
 
     return scale_mx
