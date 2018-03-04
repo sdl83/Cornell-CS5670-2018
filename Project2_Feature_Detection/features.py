@@ -303,12 +303,17 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             # descriptor image.
             transMx = np.zeros((2, 3))
 
+            # Get feature x, y
             x, y = f.pt
+            # TODO: Needed?
             # x, y = int(x), int(y)
 
+            # compute translation matrix around point f
+            # TODO: does this work?
             T1 = transformations.get_trans_mx(f.pt)
-
             
+
+
             # R = transformations.get_rot_mx()
 
              # transformations.get_scale_mx()
@@ -316,7 +321,7 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
 
 
             # TODO-BLOCK-BEGIN
-            raise Exception("TODO in features.py not implemented")
+            # raise Exception("TODO in features.py not implemented")
             # TODO-BLOCK-END
 
             # Call the warp affine function to do the mapping
