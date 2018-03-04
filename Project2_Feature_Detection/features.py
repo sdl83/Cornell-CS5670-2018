@@ -260,8 +260,8 @@ class SimpleFeatureDescriptor(FeatureDescriptor):
         width = image.shape[1]
 
         # initialize canvas and center image
-        pad = np.zeros((height + 6, width + 6))
-        pad[3: 3 + height, 3: 3 + width] = grayImage
+        pad = np.zeros((height + 5, width + 5))
+        pad[2: 2 + height, 2: 2 + width] = grayImage
         for i, f in enumerate(keypoints):
             x, y = f.pt
             x, y = int(x), int(y)
