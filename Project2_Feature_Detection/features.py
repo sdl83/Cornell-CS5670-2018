@@ -323,7 +323,7 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             T2 = transformations.get_trans_mx(trans_vec2)
 
             trans_matrix = np.dot(np.dot(np.dot(T2, S), R), T1)
-            transMx = trans_matrix[0:2, 0:]
+            transMx = trans_matrix[0:2, 0:3]
             print (transMx)
 
 
