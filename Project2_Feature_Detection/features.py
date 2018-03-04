@@ -240,7 +240,7 @@ class FeatureDescriptor(object):
 
 
 class SimpleFeatureDescriptor(FeatureDescriptor):
-    # TODO: Implement parts of this function
+
     def describeFeatures(self, image, keypoints):
         '''
         Input:
@@ -303,6 +303,10 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             # descriptor image.
             transMx = np.zeros((2, 3))
 
+            x, y = f.pt
+            x, y = int(x), int(y)
+
+            
             # TODO-BLOCK-BEGIN
             raise Exception("TODO in features.py not implemented")
             # TODO-BLOCK-END
