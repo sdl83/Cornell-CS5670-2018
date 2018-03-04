@@ -72,6 +72,10 @@ SSDFM = features.SSDFeatureMatcher()
 
 image = np.array(Image.open('resources/triangle1.jpg'))
 grayImage = cv2.cvtColor(image.astype(np.float32)/255.0, cv2.COLOR_BGR2GRAY)
+
+image2 = np.array(Image.open('resources/triangle2.jpg'))
+grayImage2 = cv2.cvtColor(image2.astype(np.float32)/255.0, cv2.COLOR_BGR2GRAY)
+
 def compute_and_save():
     (a,b) = HKD.computeHarrisValues(grayImage) # Todo1
     c = HKD.computeLocalMaxima(a) # Todo2
@@ -79,6 +83,7 @@ def compute_and_save():
     e = SFD.describeFeatures(image, d) # Todo 4
     f = MFD.describeFeatures(image, d) # Todo 5,6
     # No test for Todo 7 or 8
+    g = SSDFM.matchFeatures(image, image2) #TODO 7
     d_proc = pickle_cv2(d)
     np.savez('resources/arrays',a=a,b=b,c=c,d_proc=d_proc,e=e,f=f)
 # Uncomment next line to overwrite test data (not recommended)
@@ -125,4 +130,6 @@ try_this(3, HKD.detectKeypoints, d, compare_cv2_points, image)
 try_this(4, SFD.describeFeatures, loaded['e'], compare_array, image, d)
 
 try_this('5 and/or 6', MFD.describeFeatures, loaded['f'], compare_array, image, d)
+
+try_this(7, SSDFM.matchFeatures, loaded['g'], compare_array, image, image2)
 
