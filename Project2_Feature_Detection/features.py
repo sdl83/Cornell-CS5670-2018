@@ -335,7 +335,7 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             # variance. If the variance is zero then set the descriptor
             # vector to zero. Lastly, write the vector to desc.
 
-            print (destImage)
+            print (destImage.shape)
 
 
             # window = destImage[y : y + 5, x : x + 5]
