@@ -217,7 +217,7 @@ class ORBKeypointDetector(KeypointDetector):
             coordinates of the detected keypoints, the angle of the gradient
             (in degrees) and set the size to 10.
         '''
-        detector = cv2.ORB_create()
+        detector = cv2.ORB()
         return detector.detect(image)
 
 
