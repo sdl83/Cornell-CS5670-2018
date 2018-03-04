@@ -202,7 +202,6 @@ class HarrisKeypointDetector(KeypointDetector):
                 f.pt = (x, y)
                 f.angle = orientationImage[y, x]
                 f.response = harrisImage[y, x]
-
                 features.append(f)
 
         return features
