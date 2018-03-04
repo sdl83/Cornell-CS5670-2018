@@ -130,7 +130,7 @@ class HarrisKeypointDetector(KeypointDetector):
         # Compute harris corner strength for 'srcImage' at each pixel  
         harrisImage = det_H - 0.1 * trace_H ** 2
         # Compute orientation for each pixel and store in 'orientationImage.'
-        orientationImage = np.arctan2(dx, dy) * 180 / np.pi
+        orientationImage = np.degrees(np.arctan2(dx, dy))
 
         # Save the harris image as harris.png for the website assignment
         self.saveHarrisImage(harrisImage, srcImage)
@@ -256,16 +256,21 @@ class SimpleFeatureDescriptor(FeatureDescriptor):
         grayImage = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         desc = np.zeros((len(keypoints), 5 * 5))
 
+        height = image.shape[0]
+        width = image.shape[1]
+
+        # initialize canvas and center image
+        pad = np.zeros((height + 6, width + 6))
+        pad[3: 3 + height, 3: 3 + width] = grayImage
         for i, f in enumerate(keypoints):
             x, y = f.pt
             x, y = int(x), int(y)
 
-            # TODO 4: The simple descriptor is a 5x5 window of intensities
+            # The simple descriptor is a 5x5 window of intensities
             # sampled centered on the feature point. Store the descriptor
             # as a row-major vector. Treat pixels outside the image as zero.
-            # TODO-BLOCK-BEGIN
-            raise Exception("TODO in features.py not implemented")
-            # TODO-BLOCK-END
+            window = pad[y : y + 5, x : x + 5]
+            desc[i, :] = window.reshape((25,))
 
         return desc
 
@@ -432,14 +437,21 @@ class SSDFeatureMatcher(FeatureMatcher):
         if desc1.shape[0] == 0 or desc2.shape[0] == 0:
             return []
 
-        # TODO 7: Perform simple feature matching.  This uses the SSD
+        # Perform simple feature matching.  This uses the SSD
         # distance between two feature vectors, and matches a feature in
         # the first image with the closest feature in the second image.
         # Note: multiple features from the first image may match the same
         # feature in the second image.
-        # TODO-BLOCK-BEGIN
-        raise Exception("TODO in features.py not implemented")
-        # TODO-BLOCK-END
+        
+        dist = spatial.distance.cdist(desc1, desc2, 'euclidean')
+
+        for i in range(dist.shape[0]):
+            j = np.argmin(dist[i])
+            match = cv2.DMatch()
+            match.queryIdx = i
+            match.trainIdx = j
+            match.distance = dist[i, j]
+            matches.append(match)
 
         return matches
 
@@ -472,16 +484,22 @@ class RatioFeatureMatcher(FeatureMatcher):
         if desc1.shape[0] == 0 or desc2.shape[0] == 0:
             return []
 
-        # TODO 8: Perform ratio feature matching.
+        # Perform ratio feature matching.
         # This uses the ratio of the SSD distance of the two best matches
         # and matches a feature in the first image with the closest feature in the
         # second image.
         # Note: multiple features from the first image may match the same
         # feature in the second image.
         # You don't need to threshold matches in this function
-        # TODO-BLOCK-BEGIN
-        raise Exception("TODO in features.py not implemented")
-        # TODO-BLOCK-END
+        dist = spatial.distance.cdist(desc1, desc2, 'euclidean')
+
+        for i in range(dist.shape[0]):
+            sorted_idx = np.argsort(dist[i])
+            match = cv2.DMatch()
+            match.queryIdx = i
+            match.trainIdx = sorted_idx[0]
+            match.distance = dist[sorted_idx[0]] / dist[sorted_idx[1]]
+            matches.append(match)
 
         return matches
 
