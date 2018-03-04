@@ -202,7 +202,6 @@ class HarrisKeypointDetector(KeypointDetector):
                 f.pt = (x, y)
                 f.angle = orientationImage[y, x]
                 f.response = harrisImage[y, x]
-
                 features.append(f)
 
         return features
@@ -241,7 +240,7 @@ class FeatureDescriptor(object):
 
 
 class SimpleFeatureDescriptor(FeatureDescriptor):
-    # TODO: Implement parts of this function
+
     def describeFeatures(self, image, keypoints):
         '''
         Input:
@@ -303,6 +302,10 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             # the feature to the appropriate pixels in the 8x8 feature
             # descriptor image.
             transMx = np.zeros((2, 3))
+
+            x, y = f.pt
+            x, y = int(x), int(y)
+
 
             # TODO-BLOCK-BEGIN
             raise Exception("TODO in features.py not implemented")
