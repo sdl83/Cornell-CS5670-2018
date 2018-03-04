@@ -317,10 +317,12 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             # Compute scaling matrix by a factor of 1/5
             S = transformations.get_scale_mx(1./5.)
 
-            print (S)
+            # compute 2nd translation matrix
+            trans_vec2 = np.array([4, 4])
+            T2 = transformations.get_trans_mx(trans_vec2)
 
-             # transformations.get_scale_mx()
-            # transformations.get_rot_mx()
+            trans_matrix = np.dot(np.dot(np.dot(T2, S), R), T1)
+            print (trans_matrix)
 
 
             # TODO-BLOCK-BEGIN

@@ -53,7 +53,6 @@ def get_scale_mx(s):
     scale_mx = np.eye(3)
 
     for i in range(2):
-        print (i)
         scale_mx[i, i] = s
 
     return scale_mx
