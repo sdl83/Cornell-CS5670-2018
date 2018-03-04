@@ -324,12 +324,7 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
 
             trans_matrix = np.dot(np.dot(np.dot(T2, S), R), T1)
             transMx = trans_matrix[0:2, 0:3]
-            print (transMx)
-
-
-            # TODO-BLOCK-BEGIN
-            # raise Exception("TODO in features.py not implemented")
-            # TODO-BLOCK-END
+            # print (transMx)
 
             # Call the warp affine function to do the mapping
             # It expects a 2x3 matrix
@@ -340,13 +335,16 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             # variance. If the variance is zero then set the descriptor
             # vector to zero. Lastly, write the vector to desc.
 
-            # window = pad[y : y + 5, x : x + 5]
+            print (destImage)
+
+
+            # window = destImage[y : y + 5, x : x + 5]
             # desc[i, :] = window.reshape((25,))
 
 
-            # TODO-BLOCK-BEGIN
-            raise Exception("TODO in features.py not implemented")
-            # TODO-BLOCK-END
+            # # TODO-BLOCK-BEGIN
+            # raise Exception("TODO in features.py not implemented")
+            # # TODO-BLOCK-END
 
         return desc
 
