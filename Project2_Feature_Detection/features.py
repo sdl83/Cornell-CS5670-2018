@@ -218,7 +218,7 @@ class ORBKeypointDetector(KeypointDetector):
             (in degrees) and set the size to 10.
         '''
         detector = cv2.ORB()
-        return detector.detect(image)
+        return detector.detect(image, None)
 
 
 ## Feature descriptors #########################################################
