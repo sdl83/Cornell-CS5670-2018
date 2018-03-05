@@ -319,7 +319,7 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
 
             # compute 2nd translation matrix
             # TODO is this right?
-            trans_vec2 = np.array([0, 0])
+            trans_vec2 = np.array([5, 5])
             T2 = transformations.get_trans_mx(trans_vec2)
 
             trans_matrix = np.dot(np.dot(np.dot(T2, S), R), T1)
