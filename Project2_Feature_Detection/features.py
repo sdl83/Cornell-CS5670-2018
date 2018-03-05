@@ -341,9 +341,8 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
                 desc[i, :] = np.zeros(windowSize * windowSize)
             else :
                 norm = z_mean / dev
-                print (norm)
                 desc[i, :] = norm.reshape(windowSize * windowSize)
-
+        print (desc)
         return desc
 
 
