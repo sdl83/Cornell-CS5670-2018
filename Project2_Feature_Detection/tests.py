@@ -54,22 +54,18 @@ def try_this(todo, run, truth, compare, *args, **kargs):
         traceback.print_exc()
         print("TODO {} threw an exception, see exception above".format(todo))
         return
-    print (type(output))
-    print (type(truth))
+
     if type(output) is list or type(output) is tuple:
         for i in range(len(output)):
             if not compare(output[i], truth[i], **kargs):
                 print("TODO {} doesn't pass test: {}".format(todo, i))
                 failed+=1
-                print (output[i])
-                print (truth[i])
 
     else:
         if not compare(output, truth, **kargs):
             print("TODO {} doesn't pass test".format(todo))
             failed+=1
-            # print (output)
-            # print (truth)
+    
     return failed
 
 HKD = features.HarrisKeypointDetector()
