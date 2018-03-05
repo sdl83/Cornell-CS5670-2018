@@ -55,6 +55,7 @@ def try_this(todo, run, truth, compare, *args, **kargs):
         print("TODO {} threw an exception, see exception above".format(todo))
         return
     print (type(output))
+    print (type(truth))
     if type(output) is list or type(output) is tuple:
         for i in range(len(output)):
             if not compare(output[i], truth[i], **kargs):
