@@ -66,6 +66,8 @@ def try_this(todo, run, truth, compare, *args, **kargs):
         if not compare(output, truth, **kargs):
             print("TODO {} doesn't pass test".format(todo))
             failed+=1
+            print (output)
+            print (truth)
     return failed
 
 HKD = features.HarrisKeypointDetector()
