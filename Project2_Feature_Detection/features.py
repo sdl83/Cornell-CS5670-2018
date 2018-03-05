@@ -334,17 +334,14 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             # TODO 6: Normalize the descriptor to have zero mean and unit
             # variance. If the variance is zero then set the descriptor
             # vector to zero. Lastly, write the vector to desc.
+            z_mean = destImage - np.mean(destImage)
+            std = np.std(z_mean, axis = 0)
 
-            print (destImage.shape)
-
-
-            # window = destImage[y : y + 5, x : x + 5]
-            # desc[i, :] = window.reshape((25,))
-
-
-            # # TODO-BLOCK-BEGIN
-            # raise Exception("TODO in features.py not implemented")
-            # # TODO-BLOCK-END
+            if (std == 0) :
+                desc[i, :] = np.zeros(windowSize * windowSize)
+            else :
+                norm = z_mean / std
+                desc[i, :] = norm.reshape(windowSize * windowSize)
 
         return desc
 
