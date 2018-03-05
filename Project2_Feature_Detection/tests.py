@@ -126,5 +126,6 @@ try_this(4, SFD.describeFeatures, loaded['e'], compare_array, image, d)
 
 try_this('5 and/or 6', MFD.describeFeatures, loaded['f'], compare_array, image, d)
 
-print (loaded['f'])
+print (loaded['f'][0])
+print (MFD.describeFeatures(image, d))
 
