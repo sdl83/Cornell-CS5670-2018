@@ -126,6 +126,8 @@ HKD=HKD3()
 
 try_this('5 and/or 6', MFD.describeFeatures, loaded['f'], compare_array, image, d)
 
-print (loaded['f'][1])
-print (MFD.describeFeatures(image, d)[1])
+for i in range(loaded['f'].shape[0]) :
+    if loaded['f'][i] !=  MFD.describeFeatures(image, d)[5]
+        print (loaded['f'][i])
+        print (MFD.describeFeatures(image, d)[i])
 
