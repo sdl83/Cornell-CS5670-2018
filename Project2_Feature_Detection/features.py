@@ -325,7 +325,7 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             # trans_matrix = np.dot(np.dot(np.dot(T2, S), R), T1)
             # transMx = trans_matrix[0:2, 0:3]
 
-             x0, y0 = f.pt
+            x0, y0 = f.pt
             theta = - f.angle / 180.0 * np.pi
             T1 = np.array([[1, 0, -x0],[0, 1, -y0],[0, 0, 1]])
             cc = math.cos(theta)
