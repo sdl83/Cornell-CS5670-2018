@@ -334,8 +334,7 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             # TODO 6: Normalize the descriptor to have zero mean and unit
             # variance. If the variance is zero then set the descriptor
             # vector to zero. Lastly, write the vector to desc.
-            vect = destImage[:8, :8]
-            z_mean = vect - np.mean(vect)
+            z_mean = destImage - np.mean(destImage)
             dev = np.std(z_mean)
 
             if (dev == 0) :
@@ -343,7 +342,7 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             else :
                 norm = z_mean / dev
                 desc[i, :] = norm.reshape(windowSize * windowSize)
-        print (desc)
+                
         return desc
 
 
