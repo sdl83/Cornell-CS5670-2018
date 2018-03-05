@@ -296,32 +296,51 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
         grayImage = ndimage.gaussian_filter(grayImage, 0.5)
 
         for i, f in enumerate(keypoints):
-            # TODO 5: Compute the transform as described by the feature
+            # Compute the transform as described by the feature
             # location/orientation. You will need to compute the transform
             # from each pixel in the 40x40 rotated window surrounding
             # the feature to the appropriate pixels in the 8x8 feature
             # descriptor image.
             transMx = np.zeros((2, 3))
 
+            # Get feature x, y
             x, y = f.pt
-            x, y = int(x), int(y)
 
+            # compute translation matrix around point f
+            trans_vec = np.array([-x, -y])
+            T1 = transformations.get_trans_mx(trans_vec)
 
-            # TODO-BLOCK-BEGIN
-            raise Exception("TODO in features.py not implemented")
-            # TODO-BLOCK-END
+            # Compute rotation matrix
+            rot_angle = - f.angle / 180. * math.pi
+            R = transformations.get_rot_mx(rot_angle)
+
+            # Compute scaling matrix by a factor of 1/5
+            S = transformations.get_scale_mx(1./5.)
+
+            # compute 2nd translation matrix -- move to top left corner
+            trans_vec2 = np.array([4, 4])
+            T2 = transformations.get_trans_mx(trans_vec2)
+
+            trans_matrix = np.dot(np.dot(np.dot(T2, S), R), T1)
+
+            transMx = trans_matrix[0:2, 0:3]
 
             # Call the warp affine function to do the mapping
             # It expects a 2x3 matrix
             destImage = cv2.warpAffine(grayImage, transMx,
                 (windowSize, windowSize), flags=cv2.INTER_LINEAR)
 
-            # TODO 6: Normalize the descriptor to have zero mean and unit
+            # Normalize the descriptor to have zero mean and unit
             # variance. If the variance is zero then set the descriptor
             # vector to zero. Lastly, write the vector to desc.
-            # TODO-BLOCK-BEGIN
-            raise Exception("TODO in features.py not implemented")
-            # TODO-BLOCK-END
+            z_mean = destImage - np.mean(destImage)
+            dev = np.std(z_mean)
+
+            if (dev <= 10**(-5)) :
+                desc[i, :] = np.zeros(windowSize * windowSize)
+            else :
+                norm = z_mean / dev
+                desc[i, :] = norm.reshape(windowSize * windowSize)
 
         return desc
 
