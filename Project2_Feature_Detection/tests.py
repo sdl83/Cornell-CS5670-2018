@@ -128,7 +128,6 @@ HKD=HKD3()
 
 im = MFD.describeFeatures(image, d)
 for i in range(loaded['f'].shape[0]) :
-    for j in range(loaded['f'].shape[1]) :
-        if (loaded['f'][i][j] !=  im[i][j]) :
-            print (i)
+    if not compare(loaded['f'][i], im[i], **kargs): 
+        print (i)
 
