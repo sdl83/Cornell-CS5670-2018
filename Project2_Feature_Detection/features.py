@@ -319,7 +319,7 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
 
             # compute 2nd translation matrix
             # TODO is this right?
-            trans_vec2 = np.array([5, 5])
+            trans_vec2 = np.array([4, 4])
             T2 = transformations.get_trans_mx(trans_vec2)
 
             trans_matrix = np.dot(np.dot(np.dot(T2, S), R), T1)
@@ -334,7 +334,8 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             # TODO 6: Normalize the descriptor to have zero mean and unit
             # variance. If the variance is zero then set the descriptor
             # vector to zero. Lastly, write the vector to desc.
-            z_mean = destImage - np.mean(destImage)
+            vect = destImage[:8, :8]
+            z_mean = vect - np.mean(vect)
             dev = np.std(z_mean)
 
             if (dev == 0) :
