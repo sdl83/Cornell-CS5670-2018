@@ -59,6 +59,9 @@ def try_this(todo, run, truth, compare, *args, **kargs):
             if not compare(output[i], truth[i], **kargs):
                 print("TODO {} doesn't pass test: {}".format(todo, i))
                 failed+=1
+                print (output[i])
+                print (truth[i])
+
     else:
         if not compare(output, truth, **kargs):
             print("TODO {} doesn't pass test".format(todo))
@@ -124,10 +127,10 @@ HKD=HKD3()
 
 # try_this(4, SFD.describeFeatures, loaded['e'], compare_array, image, d)
 
-# try_this('5 and/or 6', MFD.describeFeatures, loaded['f'], compare_array, image, d)
+try_this('5 and/or 6', MFD.describeFeatures, loaded['f'], compare_array, image, d)
 
-im = MFD.describeFeatures(image, d)
-for i in range(loaded['f'].shape[0]) :
-    if not compare(loaded['f'][i], im[i], **kargs): 
-        print (i)
+# im = MFD.describeFeatures(image, d)
+# for i in range(loaded['f'].shape[0]) :
+#     if not compare(loaded['f'][i], im[i], **kargs): 
+#         print (i)
 
