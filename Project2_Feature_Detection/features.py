@@ -296,7 +296,7 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
         grayImage = ndimage.gaussian_filter(grayImage, 0.5)
 
         for i, f in enumerate(keypoints):
-            # TODO 5: Compute the transform as described by the feature
+            # Compute the transform as described by the feature
             # location/orientation. You will need to compute the transform
             # from each pixel in the 40x40 rotated window surrounding
             # the feature to the appropriate pixels in the 8x8 feature
@@ -317,12 +317,12 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             # Compute scaling matrix by a factor of 1/5
             S = transformations.get_scale_mx(1./5.)
 
-            # compute 2nd translation matrix
-            # TODO is this right?
+            # compute 2nd translation matrix -- move to top left corner
             trans_vec2 = np.array([4, 4])
             T2 = transformations.get_trans_mx(trans_vec2)
 
             trans_matrix = np.dot(np.dot(np.dot(T2, S), R), T1)
+
             transMx = trans_matrix[0:2, 0:3]
 
             # Call the warp affine function to do the mapping
@@ -330,12 +330,9 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             destImage = cv2.warpAffine(grayImage, transMx,
                 (windowSize, windowSize), flags=cv2.INTER_LINEAR)
 
-            # TODO 6: Normalize the descriptor to have zero mean and unit
+            # Normalize the descriptor to have zero mean and unit
             # variance. If the variance is zero then set the descriptor
             # vector to zero. Lastly, write the vector to desc.
-            target = destImage[:8, :8]
-            # print (target.shape)
-            # print (destImage.shape)
             z_mean = destImage - np.mean(destImage)
             dev = np.std(z_mean)
 
