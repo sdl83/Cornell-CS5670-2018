@@ -337,22 +337,22 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             transMx = MF[0:2,0:3]
             # print (transMx)
 
-            # Call the warp affine function to do the mapping
-            # It expects a 2x3 matrix
-            destImage = cv2.warpAffine(grayImage, transMx,
-                (windowSize, windowSize), flags=cv2.INTER_LINEAR)
+            # # Call the warp affine function to do the mapping
+            # # It expects a 2x3 matrix
+            # destImage = cv2.warpAffine(grayImage, transMx,
+            #     (windowSize, windowSize), flags=cv2.INTER_LINEAR)
 
-            # TODO 6: Normalize the descriptor to have zero mean and unit
-            # variance. If the variance is zero then set the descriptor
-            # vector to zero. Lastly, write the vector to desc.
-            z_mean = destImage - np.mean(destImage)
-            dev = np.std(z_mean)
+            # # TODO 6: Normalize the descriptor to have zero mean and unit
+            # # variance. If the variance is zero then set the descriptor
+            # # vector to zero. Lastly, write the vector to desc.
+            # z_mean = destImage - np.mean(destImage)
+            # dev = np.std(z_mean)
 
-            if (dev == 0) :
-                desc[i, :] = np.zeros(windowSize * windowSize)
-            else :
-                norm = z_mean / dev
-                desc[i, :] = norm.reshape(windowSize * windowSize)
+            # if (dev == 0) :
+            #     desc[i, :] = np.zeros(windowSize * windowSize)
+            # else :
+            #     norm = z_mean / dev
+            #     desc[i, :] = norm.reshape(windowSize * windowSize)
 
         return desc
 
