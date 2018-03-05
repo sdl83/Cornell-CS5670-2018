@@ -304,28 +304,37 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             transMx = np.zeros((2, 3))
 
             # Get feature x, y
-            x, y = f.pt
+            # x, y = f.pt
 
-            # compute translation matrix around point f
-            trans_vec = np.array([-x, -y])
-            T1 = transformations.get_trans_mx(trans_vec)
-            print (x)
-            print (T1)
+            # # compute translation matrix around point f
+            # trans_vec = np.array([-x, -y])
+            # T1 = transformations.get_trans_mx(trans_vec)
 
-            # Compute rotation matrix
-            rot_angle = - f.angle / 180. * math.pi
-            R = transformations.get_rot_mx(rot_angle)
+            # # Compute rotation matrix
+            # rot_angle = - f.angle / 180. * math.pi
+            # R = transformations.get_rot_mx(rot_angle)
 
-            # Compute scaling matrix by a factor of 1/5
-            S = transformations.get_scale_mx(1./5.)
+            # # Compute scaling matrix by a factor of 1/5
+            # S = transformations.get_scale_mx(1./5.)
 
-            # compute 2nd translation matrix
-            # TODO is this right?
-            trans_vec2 = np.array([4, 4])
-            T2 = transformations.get_trans_mx(trans_vec2)
+            # # compute 2nd translation matrix
+            # # TODO is this right?
+            # trans_vec2 = np.array([4, 4])
+            # T2 = transformations.get_trans_mx(trans_vec2)
 
-            trans_matrix = np.dot(np.dot(np.dot(T2, S), R), T1)
-            transMx = trans_matrix[0:2, 0:3]
+            # trans_matrix = np.dot(np.dot(np.dot(T2, S), R), T1)
+            # transMx = trans_matrix[0:2, 0:3]
+
+             x0, y0 = f.pt
+            theta = - f.angle / 180.0 * np.pi
+            T1 = np.array([[1, 0, -x0],[0, 1, -y0],[0, 0, 1]])
+            cc = math.cos(theta)
+            ss = math.sin(theta)
+            R = np.array([[cc, -ss, 0], [ss, cc, 0], [0, 0, 1]])
+            S = np.array([[0.2, 0, 0], [0, 0.2, 0], [0, 0, 1]])
+            T2 = np.array([[1, 0, 4], [0, 1, 4], [0, 0, 1]])
+            MF = np.dot(np.dot(np.dot(T2, S), R), T1)
+            transMx = MF[0:2,0:3]
             # print (transMx)
 
             # Call the warp affine function to do the mapping
