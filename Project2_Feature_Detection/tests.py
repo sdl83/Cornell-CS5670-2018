@@ -129,6 +129,5 @@ try_this('5 and/or 6', MFD.describeFeatures, loaded['f'], compare_array, image, 
 for i in range(loaded['f'].shape[0]) :
     for j in range(loaded['f'].shape[1]) :
         if (loaded['f'][i][j] !=  MFD.describeFeatures(image, d)[i][j]) :
-            print (loaded['f'][i])
-            print MFD.describeFeatures(image, d)[i]
+            print (i)
 
