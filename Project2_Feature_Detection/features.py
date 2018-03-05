@@ -335,6 +335,22 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
             T2 = np.array([[1, 0, 4], [0, 1, 4], [0, 0, 1]])
             MF = np.dot(np.dot(np.dot(T2, S), R), T1)
             transMx = MF[0:2,0:3]
+
+            destImage = cv2.warpAffine(grayImage, transMx,
+                (windowSize, windowSize), flags=cv2.INTER_LINEAR)
+
+            # Normalize the descriptor to have zero mean and unit
+            # variance. If the variance is zero then set the descriptor
+            # vector to zero. Lastly, write the vector to desc.
+            target = destImage[:8, :8]
+            target = target - np.mean(target)
+            # numeric issue, set a very small threshold instead of zero
+            if np.std(target) <= 10**(-5):
+                desc[i, :] = np.zeros((windowSize * windowSize,))
+            else:
+                target = target / np.std(target)
+                desc[i,:] = target.reshape(windowSize * windowSize)
+                
             # print (transMx)
 
             # # Call the warp affine function to do the mapping
