@@ -275,7 +275,7 @@ class SimpleFeatureDescriptor(FeatureDescriptor):
 
 
 class MOPSFeatureDescriptor(FeatureDescriptor):
-    def get_rot_mx(angle):
+    def get_rot_mx(self, angle):
         '''
         Input:
             angle_x -- Rotation around the x axis in radians
@@ -295,7 +295,7 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
         return rot_mx
 
 
-    def get_trans_mx(trans_vec):
+    def get_trans_mx(self, trans_vec):
         '''
         Input:
             trans_vec -- Translation vector represented by an 1D numpy array with 2
@@ -312,7 +312,7 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
         return trans_mx
 
 
-    def get_scale_mx(s):
+    def get_scale_mx(self, s):
         '''
         Input:
             s_x -- Scaling along the x axis
@@ -364,18 +364,18 @@ class MOPSFeatureDescriptor(FeatureDescriptor):
 
             # compute translation matrix around point f
             trans_vec = np.array([-x, -y])
-            T1 = get_trans_mx(trans_vec)
+            T1 = self.get_trans_mx(trans_vec)
 
             # Compute rotation matrix
             rot_angle = - f.angle / 180. * math.pi
-            R = get_rot_mx(rot_angle)
+            R = self.get_rot_mx(rot_angle)
 
             # Compute scaling matrix by a factor of 1/5
-            S = get_scale_mx(1./5.)
+            S = self.get_scale_mx(1./5.)
 
             # compute 2nd translation matrix -- move to top left corner
             trans_vec2 = np.array([4, 4])
-            T2 = get_trans_mx(trans_vec2)
+            T2 = self.get_trans_mx(trans_vec2)
 
             trans_matrix = np.dot(np.dot(np.dot(T2, S), R), T1)
 
